@@ -16,10 +16,18 @@ startGame.addEventListener('click', ()=> {
     startGame.style.display = 'none';
 });
 
-let player1 = square => {
-    square.innerHTML = 'X';
-}
+let player = 1;
+let counter = 0;
+
 
 boardGame.forEach((square) => {
-    square.addEventListener('click', player1(square));
+    square.addEventListener('click', () => {
+        if (counter%2 === 0) {
+            square.innerHTML = 'X';
+            counter++;
+        } else {
+            square.innerHTML = 'O';
+            counter++;
+        }
+    });
 });
