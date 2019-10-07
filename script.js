@@ -8,3 +8,18 @@ const winningArray = [
     [0, 4, 8],
     [6, 4, 2]
 ]
+
+let boardGame = Array.from(document.querySelectorAll('.s')); 
+
+let startGame = document.getElementById('start-game');
+startGame.addEventListener('click', ()=> {
+    startGame.style.display = 'none';
+});
+
+let player1 = square => {
+    square.innerHTML = 'X';
+}
+
+boardGame.forEach((square) => {
+    square.addEventListener('click', player1(square));
+});
