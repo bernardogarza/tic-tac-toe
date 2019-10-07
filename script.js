@@ -20,11 +20,18 @@ let player1 = [];
 let player2 = [];
 let counter = 0;
 
+let resetPlayer = () => {
+    player1 = [];
+    player2 = [];
+    return player1, player2;
+}
+
 let startGame = document.getElementById('start-game');
 startGame.addEventListener('click', ()=> {
     startGame.style.display = 'none';
     boardGame.forEach((square) => {
         square.classList.add('hover');
+        square.innerHTML = '';
         board.forEach(function(e) {e.style.display='inline'});
         square.addEventListener('click', () => {
             if (counter%2 === 0 && square.innerHTML === '') {
@@ -41,7 +48,9 @@ startGame.addEventListener('click', ()=> {
                             }
                             if (number1 === 3){
                                 board.forEach(function(e) {e.style.display='none'});
-                                alert('Player 1');
+                                alert('Player 1 wins');
+                                resetPlayer();
+                                square.innerHTML = '';
                                 startGame.style.display = 'inline';
                             }
                         }
@@ -62,6 +71,9 @@ startGame.addEventListener('click', ()=> {
                             }
                             if(number2 === 3){
                                 board.forEach(function(e) {e.style.display='none'});
+                                alert('Player 2 wins');
+                                resetPlayer();
+                                startGame.style.display = 'inline';
                             }
                         }
                         number2 = 0;
