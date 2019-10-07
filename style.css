@@ -19,11 +19,12 @@
     padding: 0;
     text-align: center;
     font-size: 100px;
-    cursor: pointer;
+    cursor: default;
 }
 
-.s:hover{
+.hover:hover{
     background-color: rgba(66, 255, 255, 0.425);
+    cursor: pointer;
 }
 
 .border-bottom {
