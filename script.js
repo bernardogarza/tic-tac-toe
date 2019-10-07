@@ -15,15 +15,13 @@ let identifyId = event => {
     player1.push(parseInt(event.target.id));
 }
 
-let squares = document.getElementsByClassName('s')
-squares.addEventListener('click', identifyId);
-
 let startGame = document.getElementById('start-game');
 startGame.addEventListener('click', ()=> {
     startGame.style.display = 'none';
 });
 
 let player1 = [];
+let player2 = [];
 let counter = 0;
 
 boardGame.forEach((square) => {
@@ -31,9 +29,11 @@ boardGame.forEach((square) => {
         if (counter%2 === 0 && square.innerHTML === '') {
             square.innerHTML = 'X';
             counter++;
+            player1.push(parseInt(event.target.id))
         } else if (counter%2 !== 0 && square.innerHTML === '') {
             square.innerHTML = 'O';
             counter++;
+            player2.push(parseInt(event.target.id))
         }
     });
 });
