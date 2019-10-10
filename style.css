@@ -36,6 +36,15 @@
     border-left: 10px solid black;
 }
 
+.players {
+    display: flex;
+    justify-content: space-between;
+}
+
+#messages {
+    font-size: 35px;
+}
+
 #start-game{
     margin-top: 60px;
 }
