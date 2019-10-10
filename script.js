@@ -1,3 +1,4 @@
+let startGame = document.getElementById('start-game');
 const winningArray = [
     [0, 1, 2],
     [3, 4, 5],
@@ -9,24 +10,31 @@ const winningArray = [
     [6, 4, 2]
 ]
 
-let boardGame = Array.from(document.querySelectorAll('.s'));
-let board = document.querySelectorAll('.s');
+function createPlayer(name, mark){
+    return({name, mark});
+}
+
+let Game = (()=>{
+    let boardGame = Array.from(document.querySelectorAll('.s'));
+    let turn, player, number, gameOver, p1, p2, player1, player2;
+    let messages = document.getElementById('messages');
+    let players = document.getElementById('players');
+
+    let generatePlayers = () => {
+        p1 = document.getElementById('player1');
+        p2 = document.getElementById('player2');
+        player1 = createPlayer(p1.value, 'X');
+        player2 = createPlayer(p2.value, 'O');    
+        player1.squares = [];
+        player2.squares = [];
+        players.style.display = 'none';
+    }
+})();
 
 let identifyId = event => {
     player1.push(parseInt(event.target.id));
 }
 
-let player1 = [];
-let player2 = [];
-let counter = 0;
-
-let resetPlayer = () => {
-    player1 = [];
-    player2 = [];
-    return player1, player2;
-}
-
-let startGame = document.getElementById('start-game');
 startGame.addEventListener('click', ()=> {
     startGame.style.display = 'none';
     boardGame.forEach((square) => {
@@ -83,3 +91,5 @@ startGame.addEventListener('click', ()=> {
         });
     });
 });
+
+startGame.addEventListener('click', Game.start);
