@@ -84,7 +84,7 @@ let Game = (()=>{
         square.target.classList.remove('hover');
         square.target.removeEventListener('click', markSquare);
     }
-​
+
     let tieGame = turn => {
         if (turn === 10) {
             messages.innerHTML = 'Game Over';
@@ -92,68 +92,48 @@ let Game = (()=>{
         }
     }
 
+    let winner = player => {
+        number = 0;
+        if (player.squares.length >= 3) {
+            for(let i = 0; i < 8 ; i++){
+                for (let j = 0; j < player.squares.length; j++) {
+                    if (winningArray[i].includes(player.squares[j])) {
+                        number++;
+                    }
+                    if (number === 3){
+                        messages.innerHTML = `${player.name} is the winner!`;
+                        gameOver = true;
+                        boardGame.forEach((square) => {
+                            square.removeEventListener('click', markSquare);
+                            square.classList.remove('hover');
+                        });
+                        resetStartButton();
+                    }
+                }
+                number = 0;
+            }
+        }
+    }
+
+    let resetStartButton = () => {
+        startGame.innerHTML = 'Restart';
+        startGame.style.display = 'inline';
+        startGame.removeEventListener('click', start);
+        startGame.addEventListener('click', restart);
+    }
+
+    let restart = () => {
+        players.style.display = 'inline';
+        boardGame.forEach((square) => {
+            square.style.display = 'none';
+        });
+        messages.style.display = 'none';
+        startGame.innerHTML = 'Start Game'
+        startGame.style.display = 'inline';
+        startGame.addEventListener('click', start);
+    }
+
     return {start};
 })();
 
 startGame.addEventListener('click', Game.start);
-
-// let identifyId = event => {
-//     player1.push(parseInt(event.target.id));
-// }
-
-// startGame.addEventListener('click', ()=> {
-//     startGame.style.display = 'none';
-//     boardGame.forEach((square) => {
-//         square.classList.add('hover');
-//         square.innerHTML = '';
-//         board.forEach(function(e) {e.style.display='inline'});
-//         square.addEventListener('click', () => {
-//             if (counter%2 === 0 && square.innerHTML === '') {
-//                 square.innerHTML = 'X';
-//                 counter++;
-//                 player1.push(parseInt(event.target.id));
-//                 square.classList.remove('hover');
-//                 let number1 = 0;
-//                 if (player1.length >= 3) {
-//                     for(let i = 0; i < 8 ; i++){
-//                         for (let j = 0; j < player1.length; j++) {
-//                             if (winningArray[i].includes(player1[j])) {
-//                                 number1++;
-//                             }
-//                             if (number1 === 3){
-//                                 board.forEach(function(e) {e.style.display='none'});
-//                                 alert('Player 1 wins');
-//                                 resetPlayer();
-//                                 square.innerHTML = '';
-//                                 startGame.style.display = 'inline';
-//                             }
-//                         }
-//                         number1 = 0;
-//                     }
-//                 }
-//             } else if (counter%2 !== 0 && square.innerHTML === '') {
-//                 square.innerHTML = 'O';
-//                 counter++;
-//                 player2.push(parseInt(event.target.id));
-//                 square.classList.remove('hover');
-//                 let number2 = 0;
-//                 if (player2.length >= 3) {
-//                     for(let i = 0; i < 8; i++){
-//                         for (let j = 0; j < player2.length; j++) {
-//                             if (winningArray[i].includes(player2[j])) {
-//                                 number2++;
-//                             }
-//                             if(number2 === 3){
-//                                 board.forEach(function(e) {e.style.display='none'});
-//                                 alert('Player 2 wins');
-//                                 resetPlayer();
-//                                 startGame.style.display = 'inline';
-//                             }
-//                         }
-//                         number2 = 0;
-//                     }
-//                 }
-//             }
-//         });
-//     });
-// });
