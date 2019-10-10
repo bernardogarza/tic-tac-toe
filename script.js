@@ -21,7 +21,20 @@ let Game = (()=>{
     let players = document.getElementById('players');
 
     let start = () => {
-
+        turn = 1;
+        gameOver = false;
+        generatePlayers();
+        startGame.style.display = 'none';
+        boardGame.forEach((square) => {
+            square.classList.add('hover');
+            square.innerHTML = '';
+            square.style.display = 'inline';
+            square.addEventListener('click', markSquare);
+        });
+        playerTurn();
+        player = player1;
+        messages.style.display = 'inline';
+        playerTurnMessage(player);
     }
 
     let generatePlayers = () => {
@@ -64,6 +77,18 @@ let Game = (()=>{
             player1.squares.push(parseInt(value));
         } else {
             player2.squares.push(parseInt(value));
+        }
+    }
+
+    let disableSquare = square => {
+        square.target.classList.remove('hover');
+        square.target.removeEventListener('click', markSquare);
+    }
+​
+    let tieGame = turn => {
+        if (turn === 10) {
+            messages.innerHTML = 'Game Over';
+            resetStartButton();
         }
     }
 
