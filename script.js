@@ -20,6 +20,10 @@ let Game = (()=>{
     let messages = document.getElementById('messages');
     let players = document.getElementById('players');
 
+    let start = () => {
+
+    }
+
     let generatePlayers = () => {
         p1 = document.getElementById('player1');
         p2 = document.getElementById('player2');
@@ -50,6 +54,20 @@ let Game = (()=>{
             player = player2
         }
     }
+
+    let playerTurnMessage = player => {
+        messages.innerHTML = `${player.name}'s turn`;
+    }
+
+    let addSqueare = (player, value) => {
+        if (player === player1) {
+            player1.squares.push(parseInt(value));
+        } else {
+            player2.squares.push(parseInt(value));
+        }
+    }
+
+    return {start};
 })();
 
 startGame.addEventListener('click', Game.start);
