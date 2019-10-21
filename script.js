@@ -1,4 +1,6 @@
 let startGame = document.getElementById('start-game');
+let boardGame = Array.from(document.querySelectorAll('.s'));
+
 const winningArray = [
     [0, 1, 2],
     [3, 4, 5],
@@ -10,27 +12,28 @@ const winningArray = [
     [6, 4, 2]
 ]
 
-function createPlayer(name, mark){
-    return({name, mark});
-}
+let createPlayer = (name, mark) => {
+    return {
+      name,
+      mark,
+      squares: []
+    }
+  };
 
 let Game = (()=>{
-    let boardGame = Array.from(document.querySelectorAll('.s'));
-    let turn, player, number, gameOver, p1, p2, player1, player2;
+    let player, number, p1, p2, player1, player2;
     let messages = document.getElementById('messages');
     let players = document.getElementById('players');
+    let turn;
+    let gameOver;
 
     let start = () => {
         turn = 1;
         gameOver = false;
         generatePlayers();
         startGame.style.display = 'none';
-        boardGame.forEach((square) => {
-            square.classList.add('hover');
-            square.innerHTML = '';
-            square.style.display = 'inline';
-            square.addEventListener('click', markSquare);
-        });
+        board.generate();
+        addAction();
         playerTurn();
         player = player1;
         messages.style.display = 'inline';
@@ -41,10 +44,14 @@ let Game = (()=>{
         p1 = document.getElementById('player1');
         p2 = document.getElementById('player2');
         player1 = createPlayer(p1.value, 'X');
-        player2 = createPlayer(p2.value, 'O');    
-        player1.squares = [];
-        player2.squares = [];
+        player2 = createPlayer(p2.value, 'O');
         players.style.display = 'none';
+    }
+
+    let addAction = () => {
+        boardGame.forEach(square => {
+            square.addEventListener('click', markSquare);
+        })
     }
 
     let markSquare = square => {
@@ -128,12 +135,32 @@ let Game = (()=>{
             square.style.display = 'none';
         });
         messages.style.display = 'none';
-        startGame.innerHTML = 'Start Game'
+        startGame.innerHTML = 'Start Game';
         startGame.style.display = 'inline';
         startGame.addEventListener('click', start);
     }
 
     return {start};
+})();
+
+let startGameButton = (() => {
+    let push = () => {
+        startGame.addEventListener('click', Game.start);
+    }
+
+    return {push}
+})();
+
+let board = (()=> {
+    let generate = () => {
+        boardGame.forEach((square) => {
+            square.classList.add('hover');
+            square.innerHTML = '';
+            square.style.display = 'inline';
+        });
+    }
+
+    return {generate}
 })();
 
 startGame.addEventListener('click', Game.start);
