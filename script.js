@@ -21,11 +21,9 @@ let createPlayer = (name, mark) => {
   };
 
 let Game = (()=>{
-    let player, number, p1, p2, player1, player2;
+    let turn, gameOver, player, number, p1, p2, player1, player2;
     let messages = document.getElementById('messages');
     let players = document.getElementById('players');
-    let turn;
-    let gameOver;
 
     let start = () => {
         turn = 1;
